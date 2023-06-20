@@ -1,5 +1,9 @@
 const errorMessages = {
-  WRONG_SYNTAX: 'You must inform all required data in order to add a new user.',
+  MISSING_OBJECT_PROPERTIES:
+    'The specified JSON does not include all required information to complete the operation.',
+  DELETING_WITHOUT_ID:
+    'You must inform an ID in order to delete an existing user.',
+  NOT_FOUND: 'This user ID does not exist.',
 }
 
 module.exports = errorMessages

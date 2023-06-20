@@ -1,6 +1,6 @@
 const errorMessages = require('../../utils/errorMessages')
 
-function validateBody(request, response) {
+function validateBody(request, response, next) {
   const { body: userToAdd } = request
 
   if (
@@ -13,10 +13,10 @@ function validateBody(request, response) {
     userToAdd.birthdate &&
     userToAdd.motherName
   ) {
-    return true
+    return next()
   }
 
-  return response.status(400).json({ error: errorMessages.WRONG_SYNTAX })
+  return response.status(400).json({ error: errorMessages.MISSING_PARAMETERS })
 }
 
 module.exports = {

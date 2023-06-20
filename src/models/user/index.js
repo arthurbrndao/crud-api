@@ -7,17 +7,26 @@ async function getAll() {
 
 async function add(user) {
   const query = `
-  INSERT INTO users (name, login, password, email, phone, cpf, birthdate, mother_name)
-  VALUES ('${user.name}', '${user.login}', '${user.password}', '${user.email}', '${user.phone}', '${user.cpf}', '${user.birthdate}', '${user.motherName}')
+    INSERT INTO users (name, login, password, email, phone, cpf, birthdate, mother_name)
+    VALUES ('${user.name}', '${user.login}', '${user.password}', '${user.email}', '${user.phone}', '${user.cpf}', '${user.birthdate}', '${user.motherName}')
   `
   const addedUser = await db.query(query)
 
-  console.log(addedUser)
-
   return addedUser
+}
+
+async function remove(user) {
+  const query = `
+    DELETE FROM users WHERE id=${user.id}
+  `
+
+  const removedUser = await db.query(query)
+
+  return removedUser
 }
 
 module.exports = {
   getAll,
   add,
+  remove,
 }

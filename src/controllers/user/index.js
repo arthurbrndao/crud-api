@@ -13,8 +13,24 @@ async function add(request, response) {
   return response.status(201).json({ id: insertId, ...userToAdd })
 }
 
+async function remove(request, response) {
+  const { params: userToRemove } = request
+
+  if (userToRemove.id) {
+    const removedUser = await userModel.remove(userToRemove)
+
+    if (removedUser.affectedRows === 0) {
+      return response.status(404).json({ error: errorMessages.NOT_FOUND })
+    }
+
+    return response.status(204).json()
+  }
+
+  return response.status(400).json({ error: errorMessages.DELETING_WITHOUT_ID })
+}
+
 module.exports = {
   getAll,
   add,
-  update,
+  remove,
 }
