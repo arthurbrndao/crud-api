@@ -1,12 +1,23 @@
-const connection = require('../connection')
+const db = require('../../services/db')
 
 async function getAll() {
-  const query = 'SELECT * FROM users'
-  const users = connection.query(query)
-
+  const users = await db.query('SELECT * FROM users')
   return users
+}
+
+async function add(user) {
+  const query = `
+  INSERT INTO users (name, login, password, email, phone, cpf, birthdate, mother_name)
+  VALUES ('${user.name}', '${user.login}', '${user.password}', '${user.email}', '${user.phone}', '${user.cpf}', '${user.birthdate}', '${user.motherName}')
+  `
+  const addedUser = await db.query(query)
+
+  console.log(addedUser)
+
+  return addedUser
 }
 
 module.exports = {
   getAll,
+  add,
 }
