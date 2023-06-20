@@ -1,6 +1,5 @@
-const userModel = require('../../models/user')
-const errorMessages = require('../../utils/errorMessages')
-const { validateBody } = require('../../middlewares/user')
+const userModel = require('../models/user')
+const errorMessages = require('../utils/errorMessages')
 
 async function getAll(_, response) {
   const allUsers = await userModel.getAll()

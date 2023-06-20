@@ -1,4 +1,4 @@
-const errorMessages = require('../../utils/errorMessages')
+const errorMessages = require('../utils/errorMessages')
 
 function hasFullBody(request, response, next) {
   const { body: user } = request
