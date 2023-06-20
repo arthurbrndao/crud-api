@@ -15,9 +15,9 @@ async function add(user) {
   return addedUser
 }
 
-async function remove(user) {
+async function remove(id) {
   const query = `
-    DELETE FROM ${process.env.MYSQL_DB_NAME} WHERE id=${user.id}
+    DELETE FROM ${process.env.MYSQL_DB_NAME} WHERE id=${id}
   `
 
   const removedUser = await db.query(query)

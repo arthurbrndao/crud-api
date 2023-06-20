@@ -14,9 +14,9 @@ async function add(request, response) {
 }
 
 async function remove(request, response) {
-  const { params: userToRemove } = request
+  const { params } = request
 
-  const removedUser = await userModel.remove(userToRemove)
+  const removedUser = await userModel.remove(params.id)
 
   if (removedUser.affectedRows === 0) {
     return response.status(404).json({ error: errorMessages.NOT_FOUND })
