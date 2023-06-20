@@ -1,0 +1,21 @@
+{
+  "env": {
+    "browser": true,
+    "commonjs": true,
+    "es2021": true
+  },
+  "extends": "standard-with-typescript",
+  "parserOptions": {
+    "ecmaVersion": "latest"
+  },
+  "rules": {
+    "comma-dangle": [
+      "error",
+      {
+        "objects": "always-multiline",
+        "imports": "never"
+      }
+    ],
+    "space-before-function-paren": ["error", "never"]
+  }
+}
