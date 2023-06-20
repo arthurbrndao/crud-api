@@ -1,11 +1,13 @@
 const db = require('../../services/db')
 
+import { User } from '../../types'
+
 async function getAll() {
   const users = await db.query(`SELECT * FROM ${process.env.MYSQL_DB_NAME}`)
   return users
 }
 
-async function add(user) {
+async function add(user: User) {
   const query = `
     INSERT INTO ${process.env.MYSQL_DB_NAME} (name, login, password, email, phone, cpf, birthdate, mother_name)
     VALUES ('${user.name}', '${user.login}', '${user.password}', '${user.email}', '${user.phone}', '${user.cpf}', '${user.birthdate}', '${user.motherName}')
@@ -15,7 +17,7 @@ async function add(user) {
   return addedUser
 }
 
-async function remove(id) {
+async function remove(id: number) {
   const query = `
     DELETE FROM ${process.env.MYSQL_DB_NAME} WHERE id=${id}
   `
@@ -24,7 +26,7 @@ async function remove(id) {
   return removedUser
 }
 
-async function update(user) {
+async function update(user: User) {
   const query = `
     UPDATE ${process.env.MYSQL_DB_NAME}
     SET name='${user.name}', login='${user.login}', password='${user.password}', email='${user.email}', phone='${user.phone}',
@@ -35,14 +37,14 @@ async function update(user) {
   return updatedUser
 }
 
-async function activate(id) {
+async function activate(id: number) {
   const query = `UPDATE ${process.env.MYSQL_DB_NAME} SET is_active=1 WHERE id=${id}`
 
   const activatedUser = await db.query(query)
   return activatedUser
 }
 
-async function deactivate(id) {
+async function deactivate(id: number) {
   const query = `UPDATE ${process.env.MYSQL_DB_NAME} SET is_active=0 WHERE id=${id}`
 
   const activatedUser = await db.query(query)
