@@ -14,4 +14,9 @@ router.put(
   userController.update
 )
 
+// Activation and deactivation routes.
+// Separate methods are used to prevent misusage.
+router.get('/user/:id/activate', userController.activate)
+router.get('/user/:id/deactivate', userController.deactivate)
+
 module.exports = router

@@ -29,13 +29,33 @@ async function update(request, response) {
   const { body, params } = request
   const userToUpdate = { id: params.id, ...body }
 
-  const updatedUser = await userModel.update(userToUpdate)
+  const { affectedRows } = await userModel.update(userToUpdate)
 
-  if (updatedUser.affectedRows === 0) {
+  if (affectedRows === 0) {
     return response.status(404).json({ error: errorMessages.NOT_FOUND })
   }
 
   return response.status(200).json(userToUpdate)
+}
+
+async function activate(request, response) {
+  const { params } = request
+
+  await userModel.activate(params.id)
+
+  return response.status(200).json()
+}
+
+async function deactivate(request, response) {
+  const { params } = request
+
+  const { affectedRows } = await userModel.deactivate(params.id)
+
+  if (affectedRows === 0) {
+    return response.status(404).json({ error: errorMessages.NOT_FOUND })
+  }
+
+  return response.status(200).json()
 }
 
 module.exports = {
@@ -43,4 +63,6 @@ module.exports = {
   add,
   remove,
   update,
+  activate,
+  deactivate,
 }
