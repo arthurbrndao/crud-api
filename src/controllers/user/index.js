@@ -1,5 +1,6 @@
 const userModel = require('../../models/user')
 const errorMessages = require('../../utils/errorMessages')
+const { validateBody } = require('../../middlewares/user')
 
 async function getAll(_, response) {
   const allUsers = await userModel.getAll()
@@ -8,25 +9,12 @@ async function getAll(_, response) {
 
 async function add(request, response) {
   const { body: userToAdd } = request
-
-  if (
-    userToAdd.name &&
-    userToAdd.login &&
-    userToAdd.password &&
-    userToAdd.email &&
-    userToAdd.phone &&
-    userToAdd.cpf &&
-    userToAdd.birthdate &&
-    userToAdd.motherName
-  ) {
-    const { insertId } = await userModel.add(userToAdd)
-    return response.status(201).json({ id: insertId, ...userToAdd })
-  }
-
-  return response.status(400).json({ error: errorMessages.WRONG_SYNTAX })
+  const { insertId } = await userModel.add(userToAdd)
+  return response.status(201).json({ id: insertId, ...userToAdd })
 }
 
 module.exports = {
   getAll,
   add,
+  update,
 }
