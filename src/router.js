@@ -4,10 +4,7 @@ const userController = require('./controllers/user')
 
 const router = express.Router()
 
-router.get('/users', (req, res) => userController.getAll(req, res))
-router.post('/users', (req, res) => {
-  userMiddleware.validateBody(req, res)
-  userController.add(req, res)
-})
+router.get('/users', userController.getAll)
+router.post('/users', userMiddleware.validateBody, userController.add)
 
 module.exports = router
