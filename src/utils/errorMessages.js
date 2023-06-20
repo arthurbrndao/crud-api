@@ -1,9 +1,9 @@
 const errorMessages = {
-  MISSING_OBJECT_PROPERTIES:
+  MISSING_FULL_BODY:
     'The specified JSON does not include all required information to complete the operation.',
-  DELETING_WITHOUT_ID:
-    'You must inform an ID in order to delete an existing user.',
-  NOT_FOUND: 'This user ID does not exist.',
+  MISSING_ID:
+    'You must inform an ID in your request params order to complete the operation',
+  NOT_FOUND: 'The specified user was not found.',
 }
 
 module.exports = errorMessages

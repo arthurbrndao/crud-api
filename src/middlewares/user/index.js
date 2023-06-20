@@ -1,24 +1,35 @@
 const errorMessages = require('../../utils/errorMessages')
 
-function validateBody(request, response, next) {
-  const { body: userToAdd } = request
+function hasFullBody(request, response, next) {
+  const { body: user } = request
 
   if (
-    userToAdd.name &&
-    userToAdd.login &&
-    userToAdd.password &&
-    userToAdd.email &&
-    userToAdd.phone &&
-    userToAdd.cpf &&
-    userToAdd.birthdate &&
-    userToAdd.motherName
+    user.name &&
+    user.login &&
+    user.password &&
+    user.email &&
+    user.phone &&
+    user.cpf &&
+    user.birthdate &&
+    user.motherName
   ) {
     return next()
   }
 
-  return response.status(400).json({ error: errorMessages.MISSING_PARAMETERS })
+  return response.status(400).json({ error: errorMessages.MISSING_FULL_BODY })
+}
+
+function hasId(request, response, next) {
+  const { params: user } = request
+
+  if (user.id) {
+    return next()
+  }
+
+  return response.status(400).json({ error: errorMessages.MISSING_ID })
 }
 
 module.exports = {
-  validateBody,
+  hasFullBody,
+  hasId,
 }

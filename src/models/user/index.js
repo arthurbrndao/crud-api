@@ -21,12 +21,23 @@ async function remove(user) {
   `
 
   const removedUser = await db.query(query)
-
   return removedUser
+}
+
+async function update(user) {
+  const query = `
+    UPDATE users
+    SET name='${user.name}', login='${user.login}', password='${user.password}', email='${user.email}', phone='${user.phone}',
+    cpf='${user.cpf}', birthdate='${user.birthdate}', mother_name='${user.motherName}' WHERE id=${user.id}
+  `
+
+  const updatedUser = await db.query(query)
+  return updatedUser
 }
 
 module.exports = {
   getAll,
   add,
   remove,
+  update,
 }

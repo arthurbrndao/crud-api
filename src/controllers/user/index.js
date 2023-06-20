@@ -16,21 +16,31 @@ async function add(request, response) {
 async function remove(request, response) {
   const { params: userToRemove } = request
 
-  if (userToRemove.id) {
-    const removedUser = await userModel.remove(userToRemove)
+  const removedUser = await userModel.remove(userToRemove)
 
-    if (removedUser.affectedRows === 0) {
-      return response.status(404).json({ error: errorMessages.NOT_FOUND })
-    }
-
-    return response.status(204).json()
+  if (removedUser.affectedRows === 0) {
+    return response.status(404).json({ error: errorMessages.NOT_FOUND })
   }
 
-  return response.status(400).json({ error: errorMessages.DELETING_WITHOUT_ID })
+  return response.status(204).json()
+}
+
+async function update(request, response) {
+  const { body, params } = request
+  const userToUpdate = { id: params.id, ...body }
+
+  const updatedUser = await userModel.update(userToUpdate)
+
+  if (updatedUser.affectedRows === 0) {
+    return response.status(404).json({ error: errorMessages.NOT_FOUND })
+  }
+
+  return response.status(200).json(userToUpdate)
 }
 
 module.exports = {
   getAll,
   add,
   remove,
+  update,
 }
