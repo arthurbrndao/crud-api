@@ -7,7 +7,7 @@ async function getAll() {
 
 async function add(user) {
   const query = `
-    INSERT INTO ${process.env.MYSQL_DB_NAME} (name, login, password, email, phone, cpf, birthdate, mother_name)
+    INSERT INTO ${process.env.MYSQL_DB_NAME} (name, login, password, email, phone, cpf, birthdate, motherName)
     VALUES ('${user.name}', '${user.login}', '${user.password}', '${user.email}', '${user.phone}', '${user.cpf}', '${user.birthdate}', '${user.motherName}')
   `
   const addedUser = await db.query(query)
@@ -28,7 +28,7 @@ async function update(user) {
   const query = `
     UPDATE ${process.env.MYSQL_DB_NAME}
     SET name='${user.name}', login='${user.login}', password='${user.password}', email='${user.email}', phone='${user.phone}',
-    cpf='${user.cpf}', birthdate='${user.birthdate}', mother_name='${user.motherName}' WHERE id=${user.id}
+    cpf='${user.cpf}', birthdate='${user.birthdate}', motherName='${user.motherName}' WHERE id=${user.id}
   `
 
   const updatedUser = await db.query(query)
@@ -36,14 +36,14 @@ async function update(user) {
 }
 
 async function activate(id) {
-  const query = `UPDATE ${process.env.MYSQL_DB_NAME} SET is_active=1 WHERE id=${id}`
+  const query = `UPDATE ${process.env.MYSQL_DB_NAME} SET isActive=1 WHERE id=${id}`
 
   const activatedUser = await db.query(query)
   return activatedUser
 }
 
 async function deactivate(id) {
-  const query = `UPDATE ${process.env.MYSQL_DB_NAME} SET is_active=0 WHERE id=${id}`
+  const query = `UPDATE ${process.env.MYSQL_DB_NAME} SET isActive=0 WHERE id=${id}`
 
   const activatedUser = await db.query(query)
   return activatedUser
