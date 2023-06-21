@@ -5,11 +5,7 @@ const cors = require('cors')
 
 const app = express()
 
-app.use(
-  cors({
-    origin: '*',
-  })
-)
+app.use(cors({ origin: '*' }))
 
 app.listen(process.env.SERVER_PORT, () =>
   console.log('Server is running on port ' + process.env.SERVER_PORT)
